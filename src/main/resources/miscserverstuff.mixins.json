@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "fireopal.miscserverstuff.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "DamageEnchantmentMixin",
+    "FireChargeItemMixin",
+    "ItemStackMixin",
+    "KnockbackEnchantmentMixin",
+    "MendingEnchantmentMixin",
+    "PhantomSpawnerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
