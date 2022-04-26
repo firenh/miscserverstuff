@@ -8,7 +8,6 @@
     "FireChargeItemMixin",
     "ItemStackMixin",
     "KnockbackEnchantmentMixin",
-    "MendingEnchantmentMixin",
     "PhantomSpawnerMixin"
   ],
   "injectors": {

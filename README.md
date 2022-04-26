@@ -8,6 +8,8 @@ The changes are as follows:
 - The Knockback Enchantment can be put on Sticks and Blaze Rods.
 - The Sharpness, Smite, and Bane of Arthropods enchantments can be put on Hoes.
 - RepairCost no longer increases as you upgrade tools.
+
+Previous Changes that have since been removed:
 - You can no longer put Mending on an Elytra.
 
 Note that these are all changes that are specifically implemented for my server and are subjective; however, all of these changes are implemented in just one mixin, so you can easily remove them or add them to your own projects.
