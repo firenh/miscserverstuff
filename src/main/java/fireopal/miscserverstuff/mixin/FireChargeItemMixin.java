@@ -5,6 +5,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import fireopal.miscserverstuff.MixinHelpers;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.SmallFireballEntity;
 import net.minecraft.item.FireChargeItem;
@@ -32,13 +33,13 @@ public class FireChargeItemMixin extends Item {
 		Vec3d pos = user.getEyePos();
 
 		SmallFireballEntity fireball = new SmallFireballEntity(world, user, 0, 0, 0);
-		fireball.setVelocity(user, user.getPitch(), user.getYaw(), 0.0f, 0.05f, 5.0f);
+		fireball.setVelocity(user, user.getPitch(), user.getYaw(), 0.0f, 0.01f, 0f);
 
 		double velocityFactorAboveNormal = Math.sqrt(
 			Math.pow(fireball.getVelocity().x, 2) +
 			Math.pow(fireball.getVelocity().y, 2) + 
 			Math.pow(fireball.getVelocity().z, 2)
-		) / 0.1d;
+		) / MixinHelpers.getFireballVelocityFactor();
 
 		fireball.powerX = fireball.getVelocity().x / velocityFactorAboveNormal;
 		fireball.powerY = fireball.getVelocity().y / velocityFactorAboveNormal;
