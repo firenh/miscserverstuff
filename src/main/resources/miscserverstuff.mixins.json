@@ -9,7 +9,8 @@
     "ItemStackMixin",
     "KnockbackEnchantmentMixin",
     "PhantomSpawnerMixin",
-    "ExplosiveProjectileEntityMixin"
+    "ExplosiveProjectileEntityMixin",
+    "ItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1
