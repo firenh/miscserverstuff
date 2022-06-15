@@ -21,7 +21,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Hand;
 import net.minecraft.util.TypeFilter;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPointer;
@@ -82,18 +81,19 @@ public class NewEchoShardLogic {
         }
     }
 
-    public static TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+    public static TypedActionResult<ItemStack> use(World world, PlayerEntity user, ItemStack itemStack) {
         Vec3d look = getLookVector(user);
+        NewEchoShardLogic.createChargeParticles(user, world, 20);
 
-        runSonicBoom(world, user, user.getEyePos(), look, 15, 10f, 5f);
-
-		ItemStack itemStack = user.getStackInHand(hand);
+        int result = runSonicBoom(world, user, user.getEyePos(), look, 15, 10f, 5f);
+        
         itemStack.decrement(1);
+        user.getItemCooldownManager().set(Items.ECHO_SHARD, user.isCreative() ? 10 : result);
     
         return TypedActionResult.success(itemStack, world.isClient());
     }
 
-    public static Vec3d runSonicBoom(World world, Entity user, Vec3d pos, Vec3d look, int range, float initalDamage, float endDamage) {
+    public static int runSonicBoom(World world, Entity user, Vec3d pos, Vec3d look, int range, float initalDamage, float endDamage) {
         world.playSound(pos.x, pos.y, pos.z, SoundEvents.ENTITY_WARDEN_SONIC_BOOM, SoundCategory.HOSTILE, 1, 1, false);
 
         for (PlayerEntity player : world.getPlayers()) {
@@ -108,6 +108,7 @@ public class NewEchoShardLogic {
         
         int i = 0;
         float damageLost = (endDamage - initalDamage) / ((float) range);
+        int cooldown = 100;
 
         MiscServerStuff.LOGGER.info("damageLost = " + damageLost);
 
@@ -144,6 +145,7 @@ public class NewEchoShardLogic {
 
                 MiscServerStuff.LOGGER.info(entitiesAffected.toString());
 
+                cooldown = 300;
                 break;
             }
 
@@ -171,7 +173,7 @@ public class NewEchoShardLogic {
             }
         }
 
-        return pos.add(look.multiply(i));
+        return cooldown;
     }
 
     private static Vec3d getLookVector(PlayerEntity user) {
