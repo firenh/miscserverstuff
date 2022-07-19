@@ -3,6 +3,8 @@ package fireopal.miscserverstuff;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fireopal.miscserverstuff.command.BroadcastCommand;
+import fireopal.miscserverstuff.command.MyCommands;
 import fireopal.miscserverstuff.item.NewEchoShardLogic;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
@@ -18,6 +20,7 @@ public class MiscServerStuff implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		NewEchoShardLogic.init();
+		MyCommands.init();
 		LOGGER.info("Hello from mod `miscserverstuff`!");
 	}
 

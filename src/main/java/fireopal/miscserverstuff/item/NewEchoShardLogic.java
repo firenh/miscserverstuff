@@ -88,7 +88,7 @@ public class NewEchoShardLogic {
         int result = runSonicBoom(world, user, user.getEyePos(), look, 15, 10f, 5f);
         
         itemStack.decrement(1);
-        user.getItemCooldownManager().set(Items.ECHO_SHARD, user.isCreative() ? 10 : result);
+        user.getItemCooldownManager().set(Items.ECHO_SHARD, user.isCreative() ? 0 : result);
     
         return TypedActionResult.success(itemStack, world.isClient());
     }
@@ -102,15 +102,20 @@ public class NewEchoShardLogic {
             }
         }
 
-        if ((!Objects.isNull(user)) && user instanceof LivingEntity) {
-            ((LivingEntity) user).takeKnockback(1, look.getX(), look.getZ());
-        }
+        // if ((!Objects.isNull(user)) && user instanceof LivingEntity) {
+        //     if (user instanceof PlayerEntity) {
+        //         world.getServer().getPlayerManager().getPlayer(user.getUuid())
+        //             .takeKnockback(0.5, look.getX(), look.getZ());
+        //     } else {
+        //         ((LivingEntity) user).takeKnockback(0.5, look.getX(), look.getZ());
+        //     }
+        // }
         
         int i = 0;
         float damageLost = (endDamage - initalDamage) / ((float) range);
         int cooldown = 100;
 
-        MiscServerStuff.LOGGER.info("damageLost = " + damageLost);
+        // MiscServerStuff.LOGGER.info("damageLost = " + damageLost);
 
         while (i < range) {
             i += 1;
